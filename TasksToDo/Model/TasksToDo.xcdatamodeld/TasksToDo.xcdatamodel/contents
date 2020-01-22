@@ -4,9 +4,10 @@
         <attribute name="daysAdded" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="daysNeeded" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="taskDescription" optional="YES" attributeType="String"/>
+        <attribute name="taskStarted" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="TasksEntity" positionX="-54" positionY="-9" width="128" height="103"/>
+        <element name="TasksEntity" positionX="-54" positionY="-9" width="128" height="118"/>
     </elements>
 </model>
