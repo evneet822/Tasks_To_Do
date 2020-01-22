@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         let desc = descfeild.text
         
         
-        if title == "" && daysneeded == 0{
+        if title == "" || daysneeded == 0{
            
             let alert = UIAlertController(title: "Empty feilds", message: "Fill all the feilds", preferredStyle: .alert)
                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -60,47 +60,47 @@ class ViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         else{
+
+            let appdelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appdelegate.persistentContainer.viewContext
             
-        }
-        
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appdelegate.persistentContainer.viewContext
-        
-        if selectedTask == nil{
-            let taskentity = NSEntityDescription.insertNewObject(forEntityName: "TasksEntity", into: context)
-                   
-                   taskentity.setValue(title, forKey: "title")
-                   taskentity.setValue(daysneeded, forKey: "daysNeeded")
-                   taskentity.setValue(0, forKey: "daysAdded")
-                   taskentity.setValue(desc, forKey: "taskDescription")
-            taskentity.setValue(NSDate(), forKey: "taskStarted")
-            
-                   
-                   do{
-                       try context.save()
-                   }catch{
-                       print(error)
-                   }
-        }
-        
-        if selectedTask != nil{
-            selectedTask?.setValue(title, forKey: "title")
-            selectedTask?.setValue(daysneeded, forKey: "daysNeeded")
-            selectedTask?.setValue(desc, forKey: "taskDescription")
-            
-            do{
-                try context.save()
-            }catch{
-                print(error)
+            if selectedTask == nil{
+                let taskentity = NSEntityDescription.insertNewObject(forEntityName: "TasksEntity", into: context)
+                       
+                       taskentity.setValue(title, forKey: "title")
+                       taskentity.setValue(daysneeded, forKey: "daysNeeded")
+                       taskentity.setValue(0, forKey: "daysAdded")
+                       taskentity.setValue(desc, forKey: "taskDescription")
+                taskentity.setValue(NSDate(), forKey: "taskStarted")
+                
+                       
+                       do{
+                           try context.save()
+                       }catch{
+                           print(error)
+                       }
             }
+            
+            if selectedTask != nil{
+                selectedTask?.setValue(title, forKey: "title")
+                selectedTask?.setValue(daysneeded, forKey: "daysNeeded")
+                selectedTask?.setValue(desc, forKey: "taskDescription")
+                
+                do{
+                    try context.save()
+                }catch{
+                    print(error)
+                }
+            }
+            
+            titletxt.text = ""
+            daystxt.text = ""
+            descfeild.text = ""
+            titletxt.resignFirstResponder()
+            daystxt.resignFirstResponder()
+            descfeild.resignFirstResponder()
         }
         
-        titletxt.text = ""
-        daystxt.text = ""
-        descfeild.text = ""
-        titletxt.resignFirstResponder()
-        daystxt.resignFirstResponder()
-        descfeild.resignFirstResponder()
          
         
     }

@@ -58,6 +58,7 @@ class TaskTableViewController: UITableViewController,UISearchBarDelegate {
         let neededDays = tasks![indexPath.row].value(forKey: "daysNeeded") as! Int
         if addedDays >= neededDays{
             cell?.backgroundColor = .cyan
+            cell?.detailTextLabel?.text = "Task completed"
         }
         
             return cell!
