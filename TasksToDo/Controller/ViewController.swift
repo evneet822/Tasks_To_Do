@@ -12,6 +12,8 @@ import CoreData
 class ViewController: UIViewController {
     
     
+    @IBOutlet weak var timelbl: UILabel!
+    @IBOutlet weak var datelbl: UILabel!
     @IBOutlet weak var titletxt: UITextField!
     @IBOutlet weak var daystxt: UITextField!
     @IBOutlet weak var descfeild: UITextView!
@@ -35,6 +37,14 @@ class ViewController: UIViewController {
                 titletxt.text = (object.value(forKey: "title") as! String)
                 daystxt.text = "\(object.value(forKey: "daysNeeded") as? Int ?? 0)"
                 descfeild.text = (object.value(forKey: "taskDescription") as! String)
+                let date = (object.value(forKey: "taskStarted") as! Date)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "EEE, MMM, dd"
+                let hourFormatter = DateFormatter()
+                hourFormatter.dateFormat = "h:mm a"
+                datelbl.text = dateFormatter.string(from: date) 
+                timelbl.text = hourFormatter.string(from: date)
+//                datelbl.text = "\(object.value(forKey: "taskStarted") as! NSDate)"
             }
             
         }catch{
@@ -65,13 +75,15 @@ class ViewController: UIViewController {
             let context = appdelegate.persistentContainer.viewContext
             
             if selectedTask == nil{
+                
+                
                 let taskentity = NSEntityDescription.insertNewObject(forEntityName: "TasksEntity", into: context)
                        
                        taskentity.setValue(title, forKey: "title")
                        taskentity.setValue(daysneeded, forKey: "daysNeeded")
                        taskentity.setValue(0, forKey: "daysAdded")
                        taskentity.setValue(desc, forKey: "taskDescription")
-                taskentity.setValue(NSDate(), forKey: "taskStarted")
+                       taskentity.setValue(Date(), forKey: "taskStarted")
                 
                        
                        do{
@@ -96,6 +108,8 @@ class ViewController: UIViewController {
             titletxt.text = ""
             daystxt.text = ""
             descfeild.text = ""
+            datelbl.text = ""
+            timelbl.text = ""
             titletxt.resignFirstResponder()
             daystxt.resignFirstResponder()
             descfeild.resignFirstResponder()

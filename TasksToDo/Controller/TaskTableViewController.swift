@@ -30,7 +30,7 @@ class TaskTableViewController: UITableViewController,UISearchBarDelegate {
         let appdeleagte = UIApplication.shared.delegate as! AppDelegate
         let context = appdeleagte.persistentContainer.viewContext
         contextEntity = context
-        
+    
         loadCoreData()
         print("load data")
         
